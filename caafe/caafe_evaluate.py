@@ -5,6 +5,8 @@ import numpy as np
 from .data import get_X_y
 from .preprocessing import make_datasets_numeric, make_dataset_numeric
 from sklearn.base import BaseEstimator
+from tabpfn.scripts.tabular_metrics import accuracy_metric as tabpfn_accuracy_metric
+from tabpfn.scripts.tabular_metrics import auc_metric as tabpfn_auc_metric
 
 
 def evaluate_dataset(
@@ -92,8 +94,8 @@ def evaluate_dataset(
             metric_used,
         )
 
-    acc = tabpfn.scripts.tabular_metrics.accuracy_metric(test_y, ys)
-    roc = tabpfn.scripts.tabular_metrics.auc_metric(test_y, ys)
+    acc = tabpfn_accuracy_metric(test_y, ys)
+    roc = tabpfn_auc_metric(test_y, ys)
 
     method_str = method if type(method) == str else "transformer"
     return {
