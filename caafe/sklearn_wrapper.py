@@ -37,6 +37,7 @@ class CAAFEClassifier(BaseEstimator, ClassifierMixin):
         llm_model: str = "gpt-3.5-turbo",
         n_splits: int = 10,
         n_repeats: int = 2,
+        display_method: str = "markdown",
     ) -> None:
         self.base_classifier = base_classifier
         if self.base_classifier is None:
@@ -56,6 +57,7 @@ class CAAFEClassifier(BaseEstimator, ClassifierMixin):
         self.optimization_metric = optimization_metric
         self.n_splits = n_splits
         self.n_repeats = n_repeats
+        self.display_method = display_method
 
     def fit_pandas(self, df, dataset_description, target_column_name, **kwargs):
         """
@@ -137,7 +139,7 @@ class CAAFEClassifier(BaseEstimator, ClassifierMixin):
                 iterative=self.iterations,
                 metric_used=auc_metric,
                 iterative_method=self.base_classifier,
-                display_method="markdown",
+                display_method=self.display_method,
                 n_splits=self.n_splits,
                 n_repeats=self.n_repeats,
             )
