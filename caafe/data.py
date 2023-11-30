@@ -1,7 +1,6 @@
 import pandas as pd
 import torch
 import numpy as np
-import openml
 import re
 import os
 from sklearn.model_selection import train_test_split
@@ -14,6 +13,7 @@ import copy
 
 def get_openml_classification(did, max_samples, multiclass=True, shuffled=True):
     """Load an openml dataset and return the data in the correct format."""
+    import openml
     dataset = openml.datasets.get_dataset(did)
     X, y, categorical_indicator, attribute_names = dataset.get_data(
         dataset_format="array", target=dataset.default_target_attribute
@@ -75,6 +75,7 @@ def load_openml_list(
     return_capped=False,
 ):
     """Load a list of openml datasets and return the data in the correct format."""
+    import openml
     datasets = []
     openml_list = openml.datasets.list_datasets(dids)
     print(f"Number of datasets: {len(openml_list)}")
